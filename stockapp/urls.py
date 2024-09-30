@@ -12,6 +12,11 @@ urlpatterns = [
     #updateProduct
     path('updateproduct/<int:id>/',views.updateProduct,name='updateproduct'),
     #deleteProduct
-    path('deleteproduct/<int:id>/',views.deleteProduct,name='deleteproduct')
-
+    path('deleteproduct/<int:id>/',views.deleteProduct,name='deleteproduct'),
+    #purchase a product
+    path('pruchaseproduct',views.purcahseProduct, name='purchaseproduct'),
+    
 ]
+
+
+
