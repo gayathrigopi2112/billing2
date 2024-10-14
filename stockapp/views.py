@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from .serializer import ProductSerializer,PurchaseProductSerializer
 from .models import Product,Purchaseproduct
 from rest_framework.decorators import api_view, permission_classes
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 #get all products
@@ -64,19 +66,30 @@ def deleteProduct(request,id):
     
 #purchase a product
 @api_view(['POST'])
-def purcahseProduct(request):
+def purchaseProduct(request):
     product_id = request.data.get('productid')
-    quantity_to_pruchase = request.data.get('quantity')
+    quantity_to_purchase = request.data.get('quantity')
 
     try:
         product = Product.objects.get(productid=product_id)
-        if product.quantity >= quantity_to_pruchase:
+        if product.quantity >= quantity_to_purchase:
             purchase_record = Purchaseproduct.objects.create(
                 productid=product,
-                quantity=quantity_to_pruchase
+                quantity=quantity_to_purchase
             )
-            product.quantity -= quantity_to_pruchase
+            product.quantity -= quantity_to_purchase
             product.save()
+
+            #check product quantity is 5 or below
+            if product.quantity <=5:
+                send_mail(
+                    "stock alert : product quantity low",
+                    f"the quantity of product {product.productname} (ID: {product.productid}) has dropped to {product.quantity} . Please restock",
+                    settings.DEFAULT_FROM_EMAIL,
+                    ['gvgg1998@gmail.com'],
+                    fail_silently=False,
+                )
+
             serializer = PurchaseProductSerializer(purchase_record)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:

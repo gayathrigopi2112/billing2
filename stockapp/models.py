@@ -35,8 +35,9 @@ class Purchaseproduct(models.Model):
     def __str__(self):
         return self.productid
     
-# #customer info
+#customer info
 # class Customerinfo(models.Model):
+
 
     
     

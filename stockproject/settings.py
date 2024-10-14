@@ -70,16 +70,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'stockproject.wsgi.application'
 
 # Database configuration
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'stock',
+#         'USER': 'root',
+#         'PASSWORD': 'Welcome@1998',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'stock',
-        'USER': 'root',
-        'PASSWORD': 'Welcome@1998',
+        'USER': 'postgres',
+        'PASSWORD': 'gayathri',
         'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+        'PORT': '5432',
+    }}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -114,8 +124,9 @@ CORS_ALLOWED_ORIGINS = [
 
 #EMAIL Field
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'edward23446@gmail.com'  
+EMAIL_HOST_USER = 'gvgg1998@gmail.com'  
 EMAIL_HOST_PASSWORD = 'mikj zrel ufez oehp'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'gvgg1998@gmail.com'
